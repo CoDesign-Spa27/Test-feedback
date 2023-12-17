@@ -12,9 +12,15 @@ const Form = () => {
   const [selectedPoliceStation, setSelectedPoliceStation] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(true);
+  //Handling Errors
   const [emailError, setEmailError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
-  
+  const [mobileError, setMobileError] = useState("");
+  const [subjectError, setSubjectError] = useState("");
+  const [nameError, setNameError] = useState("");
+
+
+
 
   async function submitDescription(e) {
     e.preventDefault();//for 
@@ -32,6 +38,32 @@ const Form = () => {
       setDescriptionError(false);
     }
 
+    if(!name){
+      setNameError(true);
+    }
+    else {
+      setNameError(false);
+    }
+
+
+    if(!mobile){
+      setMobileError(true);
+    }
+    else {
+      setMobileError(false);
+    }
+
+
+ 
+    if(!subject){
+      setSubjectError(true);
+    }
+    else {
+      setSubjectError(false);
+    }
+ 
+ 
+   
 
  
     //handle form submission
@@ -61,18 +93,33 @@ const Form = () => {
     }
   }
 
+  const handleReset=()=>{
+    setEmail('');
+    setSelectedCity('');
+    setSelectedPoliceStation('');
+    setDescription('');
+    setMobile('');
+    setName('');
+    setSubject('');
+
+  }
+
   return (
     <>
+    
         {showForm && (
     <form onSubmit={submitDescription}>
       
-              <FetchingCity  
+              <FetchingCity
       setSelectedCity={setSelectedCity}
       setSelectedPoliceStation={setSelectedPoliceStation}
+      
       />
+  
+
         
 
-      <div className="space-y-12">
+      <div className="space-y-12 md:ml-5">
         <div className="border-b p-5 text-white pb-12">
          
 
@@ -115,6 +162,7 @@ const Form = () => {
                     id="mobile"
                     value={mobile}
                     onChange={(e) =>{ setMobile(e.target.value)
+                      setMobileError(false)
                     }}
                     type="mobile"
                     name="mobile"
@@ -122,6 +170,7 @@ const Form = () => {
                     placeholder="Enter Mobile"
                   />
                 </div>
+                {mobileError && (<p className="animate-bounce h-2 duration-300 text-red-700 text-l">Enter Phone Number</p>)}
                  
 
               </div>
@@ -141,6 +190,7 @@ const Form = () => {
                     id="name"
                     value={name}
                     onChange={(e) =>{ setName(e.target.value)
+                      setNameError(false)
                     }}
                     type="name"
                     name="name"
@@ -148,6 +198,8 @@ const Form = () => {
                     placeholder="Enter Your Name"
                   />
                 </div>
+                {nameError && (<p className="animate-bounce h-2 duration-300 text-red-700 text-l">Enter Your Full Name</p>)}
+
 
                 </div>
              </div>
@@ -162,9 +214,10 @@ const Form = () => {
              <div className="mt-2">
               <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 sm:max-w-md">
                   <input
-                    id="name"
-                    value={name}
+                    id="subject"
+                    value={subject}
                     onChange={(e) =>{ setSubject(e.target.value)
+                      setSubject(false)
                     }}
                     type="subject"
                     name="subject"
@@ -172,6 +225,8 @@ const Form = () => {
                     placeholder="Enter the Subject"
                   />
                 </div>
+                {subjectError && (<p className="animate-bounce h-2 duration-300 text-red-700 text-l">Enter Subject</p>)}
+
 
                 </div>
              </div>
@@ -201,6 +256,8 @@ const Form = () => {
 
             </div>
             <input className="text-white p-3 rounded-lg bg-black" type="submit" value="Submit" />
+            <input className="text-black border-solid border-2 border-black hover:text-white hover:bg-gray-700 p-3 rounded-lg bg-white" type="button" onClick={handleReset} value="Reset" />
+
           </div>
         </div>
       </div>

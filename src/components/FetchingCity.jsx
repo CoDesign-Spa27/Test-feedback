@@ -3,10 +3,10 @@ import { supabase } from './supabaseClient'; // Import your Supabase instance
 
 function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
   const [cities, setCities] = useState([]);
-  
   const [policeStations, setPoliceStations] = useState([]);
   const [filteredPoliceStations, setFilteredPoliceStations] = useState([]);
-   
+
+  
  
 
   useEffect(() => {
@@ -59,7 +59,7 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
   return (
     <>
     
-    <div className='grid mt-7 grid-cols-1 sm:grid-cols-1'>
+    <div className='grid grid-cols-1  md:ml-5 sm:grid-cols-1'>
       <div className='mx-5 my-4'>
       <label 
       className='block text-sm font-medium md:py-3 leading-6 md:text-xl text-gray-900'
@@ -68,13 +68,16 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
 
       className='block flex-1 rounded-md  md:text-[1rem] font-medium border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
       placeholder="Enter Email'
-      onChange={handleCityChange} >
+      onChange={handleCityChange}
+      
+      >
         <option value="">Select a city</option>
         {cities.map((city) => (
           <option key={city.city} value={city.city}>
             {city.city}
           </option>
         ))}
+
       </select>
 </div>
 
@@ -97,6 +100,7 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
           </option>
         ))}
       </select>
+
 
       </div>
     </div>
