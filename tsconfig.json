@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-  
     // ..."target": "es5",
     "lib": ["dom", "es2017"],
     "strict": true,
@@ -8,9 +7,7 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     }
   }
 }

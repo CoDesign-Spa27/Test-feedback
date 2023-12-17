@@ -1,12 +1,13 @@
-import { useState } from 'react'
-import Form from './Form'
+import FetchingCity from "./components/FetchingCity";
+import Form from "./components/Form";
 function App() {
-
   return (
     <>
-     <Form />
+   
+      <Form />
+
     </>
-  )
+  );
 }
 
-export default App
+export default App;
