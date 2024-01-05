@@ -5,7 +5,8 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
   const [cities, setCities] = useState([]);
   const [policeStations, setPoliceStations] = useState([]);
   const [filteredPoliceStations, setFilteredPoliceStations] = useState([]);
-
+  const [cityError, setCityError] = useState(false);
+  const [stationError, setStationError] = useState(false);
   
  
 
@@ -45,13 +46,30 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
   const handleCityChange = (event) => {
     const selectedCity = event.target.value;
     setSelectedCity(selectedCity);
-     console.log("selected city --",selectedCity)
+  console.log("selected city --",selectedCity)
+
+ 
+   if(!selectedCity){
+    setCityError(true)
+    console.log("Please select")
+   }
+   else{
+    setCityError(false)
+    console.log("selected---")
+   }
  
   }
 
   const handlePoliceStationChange = (event) => {
     const selectedPoliceStation = event.target.value;
     setSelectedPoliceStation(selectedPoliceStation);
+
+    if(!selectedPoliceStation){
+      setStationError(true);
+    }
+    else{
+      setStationError(false);
+    }
   }
     //Inserting into database 
 
@@ -59,19 +77,23 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
   return (
     <>
     
-    <div className='grid grid-cols-1  md:ml-5 sm:grid-cols-1'>
+    <div className='grid grid-cols-1  md:ml-20 md:mr-20 sm:grid-cols-1'>
       <div className='mx-5 my-4'>
       <label 
-      className='block text-sm font-medium md:py-3 leading-6 md:text-xl text-gray-900'
+      className='block text-sm font-medium md:py-3 leading-6 md:text-xl text-[#1E1C67]'
       htmlFor="citySelect">Select City</label>
       <select id="citySelect" 
 
-      className='block flex-1 rounded-md  md:text-[1rem] font-medium border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+      className='block flex-1 rounded-md  md:text-[1rem] font-medium border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-blue-600  sm:text-sm sm:leading-6"
       placeholder="Enter Email'
-      onChange={handleCityChange}
+      onChange={handleCityChange
+      }
       
       >
-        <option value="">Select a city</option>
+        <option
+        value=''
+        
+        >Select a city</option>
         {cities.map((city) => (
           <option key={city.city} value={city.city}>
             {city.city}
@@ -79,15 +101,19 @@ function FetchingCity({setSelectedCity,setSelectedPoliceStation}) {
         ))}
 
       </select>
+{cityError && (<p className="  mt-2 text-sm text-red-600 dark:text-red-500">Enter City</p>)}
+
+
 </div>
+
 
 <div className='mx-5 my-4'>
       <label 
-      className='block text-sm font-medium leading-6  md:py-3 md:text-xl text-gray-900'
+      className='block text-sm font-medium leading-6  md:py-3 md:text-xl text-[#1E1C67]'
       
       htmlFor="policeStationSelect">Select Police Station</label>
       <select
-      className='block flex-1 rounded-md md:text-[1rem] font-medium border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+      className='block flex-1 rounded-md md:text-[1rem] font-medium border-2 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-1 focus:ring-blue-600 sm:text-sm sm:leading-6"
       placeholder="Enter Email'
      
         id="policeStationSelect"

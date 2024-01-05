@@ -8,7 +8,7 @@ const Header = () => {
       <img src={Rajasthan_Police_logo}
       className=' object-contain w-[10rem] h-[8rem]'
       alt="/" 
-      fill
+      
       />
       </div>
       <div>
