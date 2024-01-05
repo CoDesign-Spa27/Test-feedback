@@ -112,6 +112,12 @@ else{
         console.log("Feedback submitted successfully!");
         setSubmitted(true);
         setShowForm(false);
+
+      setTimeout(() => {
+        setSubmitted(false);
+        setShowForm(true);
+      },3000 );
+         
       }
     } catch (error) {
       console.error("Error inserting feedback:", error);
@@ -347,20 +353,20 @@ setShowHistory(!showHistory);
     </tbody>
   </table>
 </div>
-
-
-
-
 </div>
-      )
-     
-      
-}
-     
-      
+      )     
+} 
     </form>
   )}
-  {submitted && (<h1 className="text-2xl text-black font-bold">Thank Your For Your Feedback!</h1>)}
+
+{ submitted && (
+  <div className="w-full h-screen flex justify-center items-center "> 
+    <div className="max-w-sm bg-white border flex flex-col items-center justify-center h-[400px] w-[400px] border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h1 className="text-3xl text-center font-bold p-10">Your feedback is valuable for us!</h1>
+      <p className=" bg-green-100 rounded-xl border text-xl p-5 border-green-600">Submitted</p>
+    </div>
+    </div>
+  )}
   </>
   );
 };
