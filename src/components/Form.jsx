@@ -13,6 +13,7 @@ const Form = () => {
   const [submitted, setSubmitted] = useState(false);
   const [showForm, setShowForm] = useState(true);
   const [showHistory, setShowHistory] = useState(false);
+  const [loading,setLoading]= useState(false);
   //Handling Errors
   const [emailError, setEmailError] = useState(false);
   const [descriptionError, setDescriptionError] = useState(false);
@@ -91,6 +92,7 @@ else{
       police_station:selectedPoliceStation
 
   });
+  setLoading(true);
     //handle form submission
     try {
       const { error } = await supabase.from("Feedback-data").insert([
@@ -121,6 +123,9 @@ else{
       }
     } catch (error) {
       console.error("Error inserting feedback:", error);
+    }
+    finally{
+      setLoading(false);
     }
   }
 
@@ -163,6 +168,7 @@ setShowHistory(!showHistory);
 
   return (
     <>
+    
     
         {showForm && (
     <form onSubmit={submitDescription}>
@@ -324,18 +330,17 @@ setShowHistory(!showHistory);
    {showHistory && (
       
     <div>
-<h2 className="text-2xl text-center my-5 font-medium bg-slate-200 py-5">FeedBack History</h2>
-<div className="overflow-y-auto">
+<h2 className="text-xl sm:text-2xl text-center my-5 md:mx-40 font-medium bg-slate-200 py-5">FeedBack History</h2>
+<div className="overflow-y-auto md:mx-40">
   <table className="w-full whitespace-nowrap divide-y divide-gray-200">
     <thead className="bg-gray-50">
       <tr>
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Mobile</th>
-        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">City</th>
-        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Police Station</th>
-        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+      
         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subject</th>
+        <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+
       </tr>
     </thead>
     <tbody className="bg-white divide-y divide-gray-200">
@@ -343,10 +348,6 @@ setShowHistory(!showHistory);
         <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
           <td className="px-6 py-4">{feedback.email}</td>
           <td className="px-6 py-4">{feedback.description}</td>
-          <td className="px-6 py-4">{feedback.mobile}</td>
-          <td className="px-6 py-4">{feedback.city}</td>
-          <td className="px-6 py-4">{feedback.police_station}</td>
-          <td className="px-6 py-4">{feedback.name}</td>
           <td className="px-6 py-4">{feedback.subject}</td>
         </tr>
       ))}
@@ -358,6 +359,14 @@ setShowHistory(!showHistory);
 } 
     </form>
   )}
+  {loading && (
+<div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+role="status">
+<span
+  className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
+>Loading...</span>
+</div>
+    )}
 
 { submitted && (
   <div className="w-full h-screen flex justify-center items-center "> 
